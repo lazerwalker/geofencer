@@ -14,6 +14,7 @@
 		C69984CC1D68CA7F004F761B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C69984CA1D68CA7F004F761B /* LaunchScreen.storyboard */; };
 		C69984D41D68CB33004F761B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69984D31D68CB33004F761B /* MapKit.framework */; };
 		C69984D61D68CBA3004F761B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69984D51D68CBA3004F761B /* CoreLocation.framework */; };
+		C69984D81D68F484004F761B /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984D71D68F483004F761B /* Geofence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		C69984CD1D68CA7F004F761B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C69984D31D68CB33004F761B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C69984D51D68CBA3004F761B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C69984D71D68F483004F761B /* Geofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +70,7 @@
 				C69984C81D68CA7F004F761B /* Assets.xcassets */,
 				C69984CA1D68CA7F004F761B /* LaunchScreen.storyboard */,
 				C69984CD1D68CA7F004F761B /* Info.plist */,
+				C69984D71D68F483004F761B /* Geofence.swift */,
 			);
 			path = GeoFencer;
 			sourceTree = "<group>";
@@ -145,6 +148,7 @@
 			files = (
 				C69984C41D68CA7F004F761B /* ViewController.swift in Sources */,
 				C69984C21D68CA7F004F761B /* AppDelegate.swift in Sources */,
+				C69984D81D68F484004F761B /* Geofence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -61,14 +61,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 mapView.removeAnnotation(circle)
             }
 
-            let p1 = MKMapPointForCoordinate(first.coordinate)
-            let p2 = MKMapPointForCoordinate(second.coordinate)
-
-            let mapRect = MKMapRectMake(fmin(p1.x,p2.x),
-                                        fmin(p1.y,p2.y),
-                                        fabs(p1.x-p2.x),
-                                        fabs(p1.y-p2.y))
-            circle = MKCircle(mapRect: mapRect)
+            circle = Geofence.circleFromPoints(first.coordinate, second.coordinate)
 
             if let circle = circle {
                 circle.title = "My Geofence"
