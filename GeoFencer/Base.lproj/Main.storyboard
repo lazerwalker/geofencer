@@ -28,11 +28,17 @@
                                         <rect key="frame" x="0.0" y="0.0" width="270" height="60"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="First Corner"/>
+                                        <connections>
+                                            <action selector="didTapFirstButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TIG-Px-ssU"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awo-lg-dDq">
                                         <rect key="frame" x="290" y="0.0" width="270" height="60"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <state key="normal" title="Second Corner"/>
+                                        <connections>
+                                            <action selector="didTapSecondButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tmg-mx-Ywl"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -58,6 +64,11 @@
                             </mask>
                         </variation>
                     </view>
+                    <connections>
+                        <outlet property="firstButton" destination="Ec5-fc-drR" id="9Jz-Av-hxF"/>
+                        <outlet property="mapView" destination="UO9-Hm-jsj" id="yfI-IO-8kq"/>
+                        <outlet property="secondButton" destination="awo-lg-dDq" id="oyZ-2J-RmR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
