@@ -1,11 +1,3 @@
-//
-//  ViewController.swift
-//  GeoFencer
-//
-//  Created by Mike Lazer-Walker on 8/20/16.
-//  Copyright © 2016 Mike Lazer-Walker. All rights reserved.
-//
-
 import UIKit
 
 class ViewController: UIViewController {

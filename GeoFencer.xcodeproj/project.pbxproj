@@ -13,6 +13,7 @@
 		C69984C91D68CA7F004F761B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C69984C81D68CA7F004F761B /* Assets.xcassets */; };
 		C69984CC1D68CA7F004F761B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C69984CA1D68CA7F004F761B /* LaunchScreen.storyboard */; };
 		C69984D41D68CB33004F761B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69984D31D68CB33004F761B /* MapKit.framework */; };
+		C69984D61D68CBA3004F761B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69984D51D68CBA3004F761B /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		C69984CB1D68CA7F004F761B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C69984CD1D68CA7F004F761B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C69984D31D68CB33004F761B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		C69984D51D68CBA3004F761B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C69984D61D68CBA3004F761B /* CoreLocation.framework in Frameworks */,
 				C69984D41D68CB33004F761B /* MapKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,6 +44,7 @@
 		C69984B51D68CA7F004F761B = {
 			isa = PBXGroup;
 			children = (
+				C69984D51D68CBA3004F761B /* CoreLocation.framework */,
 				C69984D31D68CB33004F761B /* MapKit.framework */,
 				C69984C01D68CA7F004F761B /* GeoFencer */,
 				C69984BF1D68CA7F004F761B /* Products */,
