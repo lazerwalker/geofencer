@@ -41,6 +41,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    @IBAction func didTapDoneButton(sender: AnyObject) {
+        print("Tapped done!")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.requestWhenInUseAuthorization()
