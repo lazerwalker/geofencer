@@ -67,6 +67,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             circle = MKCircle(mapRect: mapRect)
 
             if let circle = circle {
+                circle.title = "My Geofence"
                 mapView.addOverlay(circle)
                 mapView.addAnnotation(circle)
             }
@@ -75,6 +76,26 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
     //-
     // MKMapViewDelegate
+
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+        if annotation.isKindOfClass(MKPointAnnotation.self) || annotation.isKindOfClass(MKCircle.self) {
+            let identifier = NSStringFromClass(MKPinAnnotationView.self)
+            var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) as? MKPinAnnotationView
+            if (pinView == nil) {
+                pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
+            }
+
+            if annotation.isKindOfClass(MKCircle.self) {
+                pinView?.pinTintColor = MKPinAnnotationView.greenPinColor()
+            } else {
+                pinView?.pinTintColor = MKPinAnnotationView.redPinColor()
+            }
+            
+            return pinView
+        }
+        return nil
+    }
+
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         if overlay.isKindOfClass(MKCircle.self) {
             let renderer = MKCircleRenderer(overlay: overlay)
