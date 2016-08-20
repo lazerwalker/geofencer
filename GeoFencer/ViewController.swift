@@ -12,6 +12,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var firstButton: UIButton!
     @IBOutlet weak var secondButton: UIButton!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     
     @IBAction func didTapFirstButton(sender: AnyObject) {
         if let first = first {
@@ -24,6 +25,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             mapView.addAnnotation(first)
 
             recalculateCircle()
+            recalculateDoneButton()
         }
     }
 
@@ -38,11 +40,26 @@ class ViewController: UIViewController, MKMapViewDelegate {
             mapView.addAnnotation(second)
 
             recalculateCircle()
+            recalculateDoneButton()
         }
     }
     
     @IBAction func didTapDoneButton(sender: AnyObject) {
-        print("Tapped done!")
+        if let first = first, second = second {
+            // TODO: Do anything with this
+            let geofence = Geofence(points:[first.coordinate, second.coordinate])
+
+            mapView.removeAnnotation(first)
+            mapView.removeAnnotation(second)
+            mapView.removeAnnotation(circle!)
+            mapView.removeOverlay(circle!)
+
+            self.first = nil
+            self.second = nil
+            self.circle = nil
+
+            self.doneButton.enabled = false
+        }
     }
     
     override func viewDidLoad() {
@@ -69,6 +86,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 mapView.addAnnotation(circle)
             }
         }
+    }
+
+    func recalculateDoneButton() {
+        doneButton.enabled = (first != nil && second != nil)
     }
 
     //-

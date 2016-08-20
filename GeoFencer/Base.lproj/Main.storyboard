@@ -91,6 +91,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="doneButton" destination="VJc-yX-Lq1" id="FfT-AK-fog"/>
                         <outlet property="firstButton" destination="Ec5-fc-drR" id="9Jz-Av-hxF"/>
                         <outlet property="mapView" destination="UO9-Hm-jsj" id="yfI-IO-8kq"/>
                         <outlet property="secondButton" destination="awo-lg-dDq" id="oyZ-2J-RmR"/>
