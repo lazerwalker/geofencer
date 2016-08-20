@@ -9,6 +9,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     var second:MKPointAnnotation?
     var circle:MKCircle?
 
+    var previousGeofences:[Geofence] = []
+
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var firstButton: UIButton!
     @IBOutlet weak var secondButton: UIButton!
@@ -48,6 +50,9 @@ class ViewController: UIViewController, MKMapViewDelegate {
         if let first = first, second = second {
             // TODO: Do anything with this
             let geofence = Geofence(points:[first.coordinate, second.coordinate])
+            previousGeofences.append(geofence)
+            mapView.addOverlay(geofence.circle)
+            mapView.addAnnotation(geofence.circle)
 
             mapView.removeAnnotation(first)
             mapView.removeAnnotation(second)
