@@ -61,7 +61,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBAction func didTapDoneButton(sender: AnyObject) {
         if let first = first, second = second {
             // TODO: Do anything with this
-            let geofence = Geofence(points:[first.coordinate, second.coordinate])
+            let geofence = Geofence(points:[first, second])
             previousGeofences.append(geofence)
 
             mapView.removeAnnotation(first)
@@ -93,7 +93,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 mapView.removeAnnotation(circle)
             }
 
-            circle = Geofence.circleFromPoints(first.coordinate, second.coordinate)
+            circle = Geofence.circleFromPoints([first, second])
 
             if let circle = circle {
                 circle.title = "My Geofence"

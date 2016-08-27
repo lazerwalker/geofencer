@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4361A183B96B66CE43A6D152 /* Pods_GeoFencer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E98DE08930E8C8587CEA3A5 /* Pods_GeoFencer.framework */; };
+		C607716E1D71EF7700A634C4 /* Geofence.m in Sources */ = {isa = PBXBuildFile; fileRef = C607716D1D71EF7700A634C4 /* Geofence.m */; };
 		C69984C21D68CA7F004F761B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984C11D68CA7F004F761B /* AppDelegate.swift */; };
 		C69984C41D68CA7F004F761B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984C31D68CA7F004F761B /* ViewController.swift */; };
 		C69984C71D68CA7F004F761B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C69984C51D68CA7F004F761B /* Main.storyboard */; };
@@ -15,11 +16,13 @@
 		C69984CC1D68CA7F004F761B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C69984CA1D68CA7F004F761B /* LaunchScreen.storyboard */; };
 		C69984D41D68CB33004F761B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69984D31D68CB33004F761B /* MapKit.framework */; };
 		C69984D61D68CBA3004F761B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69984D51D68CBA3004F761B /* CoreLocation.framework */; };
-		C69984D81D68F484004F761B /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984D71D68F483004F761B /* Geofence.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0E98DE08930E8C8587CEA3A5 /* Pods_GeoFencer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeoFencer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C607716B1D71EF7700A634C4 /* GeoFencer-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GeoFencer-Bridging-Header.h"; sourceTree = "<group>"; };
+		C607716C1D71EF7700A634C4 /* Geofence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geofence.h; sourceTree = "<group>"; };
+		C607716D1D71EF7700A634C4 /* Geofence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geofence.m; sourceTree = "<group>"; };
 		C69984BE1D68CA7F004F761B /* GeoFencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoFencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69984C11D68CA7F004F761B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69984C31D68CA7F004F761B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,7 +32,6 @@
 		C69984CD1D68CA7F004F761B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C69984D31D68CB33004F761B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C69984D51D68CBA3004F761B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		C69984D71D68F483004F761B /* Geofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
 		D115368F7C8670ADB8946713 /* Pods-GeoFencer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFencer.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFencer/Pods-GeoFencer.release.xcconfig"; sourceTree = "<group>"; };
 		FE6D75FB2349E033D9F86640 /* Pods-GeoFencer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFencer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFencer/Pods-GeoFencer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,7 +87,9 @@
 				C69984C81D68CA7F004F761B /* Assets.xcassets */,
 				C69984CA1D68CA7F004F761B /* LaunchScreen.storyboard */,
 				C69984CD1D68CA7F004F761B /* Info.plist */,
-				C69984D71D68F483004F761B /* Geofence.swift */,
+				C607716C1D71EF7700A634C4 /* Geofence.h */,
+				C607716D1D71EF7700A634C4 /* Geofence.m */,
+				C607716B1D71EF7700A634C4 /* GeoFencer-Bridging-Header.h */,
 			);
 			path = GeoFencer;
 			sourceTree = "<group>";
@@ -222,8 +226,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				C69984C41D68CA7F004F761B /* ViewController.swift in Sources */,
+				C607716E1D71EF7700A634C4 /* Geofence.m in Sources */,
 				C69984C21D68CA7F004F761B /* AppDelegate.swift in Sources */,
-				C69984D81D68F484004F761B /* Geofence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,10 +341,13 @@
 			baseConfigurationReference = FE6D75FB2349E033D9F86640 /* Pods-GeoFencer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GeoFencer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lazerwalker.GeoFencer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GeoFencer/GeoFencer-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -349,10 +356,12 @@
 			baseConfigurationReference = D115368F7C8670ADB8946713 /* Pods-GeoFencer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = GeoFencer/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lazerwalker.GeoFencer;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "GeoFencer/GeoFencer-Bridging-Header.h";
 			};
 			name = Release;
 		};
