@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4361A183B96B66CE43A6D152 /* Pods_GeoFencer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E98DE08930E8C8587CEA3A5 /* Pods_GeoFencer.framework */; };
 		C69984C21D68CA7F004F761B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984C11D68CA7F004F761B /* AppDelegate.swift */; };
 		C69984C41D68CA7F004F761B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984C31D68CA7F004F761B /* ViewController.swift */; };
 		C69984C71D68CA7F004F761B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C69984C51D68CA7F004F761B /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E98DE08930E8C8587CEA3A5 /* Pods_GeoFencer.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GeoFencer.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69984BE1D68CA7F004F761B /* GeoFencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoFencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69984C11D68CA7F004F761B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69984C31D68CA7F004F761B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -28,6 +30,8 @@
 		C69984D31D68CB33004F761B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C69984D51D68CBA3004F761B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C69984D71D68F483004F761B /* Geofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
+		D115368F7C8670ADB8946713 /* Pods-GeoFencer.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFencer.release.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFencer/Pods-GeoFencer.release.xcconfig"; sourceTree = "<group>"; };
+		FE6D75FB2349E033D9F86640 /* Pods-GeoFencer.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoFencer.debug.xcconfig"; path = "Pods/Target Support Files/Pods-GeoFencer/Pods-GeoFencer.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,12 +41,21 @@
 			files = (
 				C69984D61D68CBA3004F761B /* CoreLocation.framework in Frameworks */,
 				C69984D41D68CB33004F761B /* MapKit.framework in Frameworks */,
+				4361A183B96B66CE43A6D152 /* Pods_GeoFencer.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8450CD43CFF3C8CF93202D31 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0E98DE08930E8C8587CEA3A5 /* Pods_GeoFencer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		C69984B51D68CA7F004F761B = {
 			isa = PBXGroup;
 			children = (
@@ -50,6 +63,8 @@
 				C69984D31D68CB33004F761B /* MapKit.framework */,
 				C69984C01D68CA7F004F761B /* GeoFencer */,
 				C69984BF1D68CA7F004F761B /* Products */,
+				D0FC595C5DB6CC23FB2EECE4 /* Pods */,
+				8450CD43CFF3C8CF93202D31 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -75,6 +90,15 @@
 			path = GeoFencer;
 			sourceTree = "<group>";
 		};
+		D0FC595C5DB6CC23FB2EECE4 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FE6D75FB2349E033D9F86640 /* Pods-GeoFencer.debug.xcconfig */,
+				D115368F7C8670ADB8946713 /* Pods-GeoFencer.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -82,9 +106,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = C69984D01D68CA7F004F761B /* Build configuration list for PBXNativeTarget "GeoFencer" */;
 			buildPhases = (
+				DAD22650F7221954DD42AF4F /* [CP] Check Pods Manifest.lock */,
 				C69984BA1D68CA7F004F761B /* Sources */,
 				C69984BB1D68CA7F004F761B /* Frameworks */,
 				C69984BC1D68CA7F004F761B /* Resources */,
+				0FDED1E88A973215E044DEBB /* [CP] Embed Pods Frameworks */,
+				2EBECF05CBB365DFDB493870 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -140,6 +167,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		0FDED1E88A973215E044DEBB /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFencer/Pods-GeoFencer-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2EBECF05CBB365DFDB493870 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-GeoFencer/Pods-GeoFencer-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DAD22650F7221954DD42AF4F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		C69984BA1D68CA7F004F761B /* Sources */ = {
@@ -259,6 +334,7 @@
 		};
 		C69984D11D68CA7F004F761B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FE6D75FB2349E033D9F86640 /* Pods-GeoFencer.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GeoFencer/Info.plist;
@@ -270,6 +346,7 @@
 		};
 		C69984D21D68CA7F004F761B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D115368F7C8670ADB8946713 /* Pods-GeoFencer.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = GeoFencer/Info.plist;
@@ -298,6 +375,7 @@
 				C69984D21D68CA7F004F761B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
