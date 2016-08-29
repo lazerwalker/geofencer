@@ -56,4 +56,9 @@ class Geofence {
         }
         return nil
     }
+
+    class func listAsJSON(geofences:[Geofence]) -> String {
+        let list = geofences.map({$0.toJSON()})
+        return "[\(list.joinWithSeparator(","))]"
+    }
 }
