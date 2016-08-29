@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -40,7 +41,7 @@
                                     <outlet property="delegate" destination="BYZ-38-t0r" id="WCG-bz-BV5"/>
                                 </connections>
                             </mapView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UQA-pH-FdH">
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="UQA-pH-FdH">
                                 <rect key="frame" x="20" y="520" width="560" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ec5-fc-drR">
@@ -83,23 +84,33 @@
                             </mask>
                         </variation>
                     </view>
+                    <toolbarItems/>
                     <navigationItem key="navigationItem" title="GeoFencer" id="KZo-ml-X5k">
                         <barButtonItem key="leftBarButtonItem" title="Reset" id="uey-NV-B6n">
                             <connections>
                                 <action selector="didTapResetButton:" destination="BYZ-38-t0r" id="WrQ-gI-9Un"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Done" id="VJc-yX-Lq1">
-                            <connections>
-                                <action selector="didTapDoneButton:" destination="BYZ-38-t0r" id="j13-AK-SCX"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Done" id="VJc-yX-Lq1">
+                                <connections>
+                                    <action selector="didTapDoneButton:" destination="BYZ-38-t0r" id="j13-AK-SCX"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem systemItem="action" id="1gY-PF-otC">
+                                <connections>
+                                    <action selector="didTapShareButton:" destination="BYZ-38-t0r" id="PQQ-GV-mD9"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="doneButton" destination="VJc-yX-Lq1" id="FfT-AK-fog"/>
                         <outlet property="firstButton" destination="Ec5-fc-drR" id="9Jz-Av-hxF"/>
                         <outlet property="mapView" destination="UO9-Hm-jsj" id="yfI-IO-8kq"/>
                         <outlet property="secondButton" destination="awo-lg-dDq" id="oyZ-2J-RmR"/>
+                        <outlet property="shareButton" destination="1gY-PF-otC" id="PBU-KF-W8X"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

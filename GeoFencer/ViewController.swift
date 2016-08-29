@@ -32,7 +32,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var firstButton: UIButton!
     @IBOutlet weak var secondButton: UIButton!
     @IBOutlet weak var doneButton: UIBarButtonItem!
-    
+    @IBOutlet weak var shareButton: UIBarButtonItem!
+
     @IBAction func didTapFirstButton(sender: AnyObject) {
         if let first = first {
             mapView.removeAnnotation(first)
@@ -115,6 +116,11 @@ class ViewController: UIViewController, MKMapViewDelegate {
         self.presentViewController(alert, animated: true, completion: nil)
     }
 
+    @IBAction func didTapShareButton(sender: AnyObject) {
+        let json = Geofence.listAsJSON(self.previousGeofences)
+        let activityViewController = UIActivityViewController(activityItems: [json as NSString], applicationActivities: nil)
+        presentViewController(activityViewController, animated: true, completion: nil)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
