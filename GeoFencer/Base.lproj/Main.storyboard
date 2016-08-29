@@ -92,7 +92,7 @@
                             </connections>
                         </barButtonItem>
                         <rightBarButtonItems>
-                            <barButtonItem title="Done" id="VJc-yX-Lq1">
+                            <barButtonItem enabled="NO" title="Done" id="VJc-yX-Lq1">
                                 <connections>
                                     <action selector="didTapDoneButton:" destination="BYZ-38-t0r" id="j13-AK-SCX"/>
                                 </connections>
