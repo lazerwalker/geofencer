@@ -1,7 +1,7 @@
 import Foundation
 import MapKit
 
-class Geofence {
+class Geofence : Equatable {
     let points:[CLLocationCoordinate2D]
     let title:String
 
@@ -61,4 +61,9 @@ class Geofence {
         let list = geofences.map({$0.toJSON()})
         return "[\(list.joinWithSeparator(","))]"
     }
+}
+
+// Equatable
+func ==(lhs: Geofence, rhs: Geofence) -> Bool {
+    return lhs.toJSON() == rhs.toJSON()
 }
