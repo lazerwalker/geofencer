@@ -30,10 +30,14 @@ class Geofence : Equatable {
     //-
     // TODO: All the lols.
     func toJSON() -> String {
-        let pointString = points.map { (coordinate) -> String in
+        func coordToString(coordinate:CLLocationCoordinate2D) -> String {
             return String("\"\(coordinate.latitude),\(coordinate.longitude)\"")
-            }.joinWithSeparator(",")
-        return "{\"title\":\"\(title)\", \"points\":[\(pointString)]}"
+        }
+
+        let pointString = points.map({ coordToString($0) }).joinWithSeparator(",")
+        let centerCoordinate = coordToString(circle.coordinate)
+
+        return "{\"title\":\"\(title)\", \"points\":[\(pointString)], \"center\":\(centerCoordinate), \"radius\":\(circle.radius)}"
     }
 
     class func fromJSON(json:String) -> Geofence? {
