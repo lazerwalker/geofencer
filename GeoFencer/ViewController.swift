@@ -9,6 +9,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     var second:MKPointAnnotation?
     var circle:MKCircle?
 
+    let diskStore = DiskStore()
+
     var previousGeofences:[Geofence] = [] {
         didSet {
             for geofence in oldValue {
@@ -20,7 +22,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 mapView.addOverlay(geofence.circle)
                 mapView.addAnnotation(geofence.circle)
             }
+
+            diskStore.save(previousGeofences)
         }
+
     }
 
     @IBOutlet weak var mapView: MKMapView!
@@ -83,6 +88,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.FollowWithHeading, animated: true)
+
+        previousGeofences = diskStore.load()
     }
 
     // -

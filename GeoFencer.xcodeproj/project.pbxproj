@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C63DD7F61D74C4A200AB0A9A /* DiskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63DD7F51D74C4A200AB0A9A /* DiskStore.swift */; };
 		C69984C21D68CA7F004F761B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984C11D68CA7F004F761B /* AppDelegate.swift */; };
 		C69984C41D68CA7F004F761B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984C31D68CA7F004F761B /* ViewController.swift */; };
 		C69984C71D68CA7F004F761B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C69984C51D68CA7F004F761B /* Main.storyboard */; };
@@ -18,6 +19,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C63DD7F51D74C4A200AB0A9A /* DiskStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskStore.swift; sourceTree = "<group>"; };
 		C69984BE1D68CA7F004F761B /* GeoFencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoFencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69984C11D68CA7F004F761B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69984C31D68CA7F004F761B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 				C69984CA1D68CA7F004F761B /* LaunchScreen.storyboard */,
 				C69984CD1D68CA7F004F761B /* Info.plist */,
 				C69984D71D68F483004F761B /* Geofence.swift */,
+				C63DD7F51D74C4A200AB0A9A /* DiskStore.swift */,
 			);
 			path = GeoFencer;
 			sourceTree = "<group>";
@@ -148,6 +151,7 @@
 			files = (
 				C69984C41D68CA7F004F761B /* ViewController.swift in Sources */,
 				C69984C21D68CA7F004F761B /* AppDelegate.swift in Sources */,
+				C63DD7F61D74C4A200AB0A9A /* DiskStore.swift in Sources */,
 				C69984D81D68F484004F761B /* Geofence.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,6 +302,7 @@
 				C69984D21D68CA7F004F761B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
