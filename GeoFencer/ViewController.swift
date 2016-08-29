@@ -23,6 +23,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 mapView.addAnnotation(geofence.circle)
             }
 
+            shareButton.enabled = (previousGeofences.count > 0)
+            resetButton.enabled = (previousGeofences.count > 0)
             diskStore.save(previousGeofences)
         }
 
@@ -33,6 +35,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var secondButton: UIButton!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    @IBOutlet weak var resetButton: UIBarButtonItem!
 
     @IBAction func didTapFirstButton(sender: AnyObject) {
         if let first = first {
