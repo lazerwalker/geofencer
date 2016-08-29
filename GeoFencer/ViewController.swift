@@ -38,32 +38,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
     @IBOutlet weak var resetButton: UIBarButtonItem!
 
     @IBAction func didTapFirstButton(sender: AnyObject) {
-        if let first = first {
-            mapView.removeAnnotation(first)
-        }
-
-        first = MKPointAnnotation()
-        if let first = first, location = mapView.userLocation.location {
-            first.coordinate = location.coordinate
-            mapView.addAnnotation(first)
-
-            recalculateCircle()
-            recalculateDoneButton()
+        if let coordinate = mapView.userLocation.location?.coordinate {
+            replaceFirstWithCoordinate(coordinate)
         }
     }
 
     @IBAction func didTapSecondButton(sender: AnyObject) {
-        if let second = second {
-            mapView.removeAnnotation(second)
-        }
-
-        second = MKPointAnnotation()
-        if let second = second, location = mapView.userLocation.location {
-            second.coordinate = location.coordinate
-            mapView.addAnnotation(second)
-
-            recalculateCircle()
-            recalculateDoneButton()
+        if let coordinate = mapView.userLocation.location?.coordinate {
+            replaceSecondWithCoordinate(coordinate)
         }
     }
     
@@ -136,6 +118,36 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
 
     // -
+    func replaceFirstWithCoordinate(coordinate:CLLocationCoordinate2D) {
+        if let first = first {
+            mapView.removeAnnotation(first)
+        }
+
+        first = MKPointAnnotation()
+        if let first = first {
+            first.coordinate = coordinate
+            mapView.addAnnotation(first)
+
+            recalculateCircle()
+            recalculateDoneButton()
+        }
+    }
+
+    func replaceSecondWithCoordinate(coordinate:CLLocationCoordinate2D) {
+        if let second = second {
+            mapView.removeAnnotation(second)
+        }
+
+        second = MKPointAnnotation()
+        if let second = second {
+            second.coordinate = coordinate
+            mapView.addAnnotation(second)
+
+            recalculateCircle()
+            recalculateDoneButton()
+        }
+    }
+
     func recalculateCircle() {
         if let first = first, second = second {
             if let circle = circle {
@@ -171,9 +183,11 @@ class ViewController: UIViewController, MKMapViewDelegate {
             if annotation.isKindOfClass(MKCircle.self) {
                 pinView?.pinTintColor = MKPinAnnotationView.greenPinColor()
                 pinView?.canShowCallout = true
+                pinView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
             } else {
                 pinView?.pinTintColor = MKPinAnnotationView.redPinColor()
                 pinView?.canShowCallout = false
+                pinView?.rightCalloutAccessoryView = nil
             }
             
             return pinView
@@ -196,5 +210,20 @@ class ViewController: UIViewController, MKMapViewDelegate {
         // Obj-C interop is hard!
         return MKCircleRenderer()
     }
+
+    func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if (!view.annotation!.isKindOfClass(MKCircle.self)) { return }
+            if let circle = view.annotation as? MKCircle {
+                if let index = self.previousGeofences.indexOf({ $0.circle == circle }) {
+                    let geofence = self.previousGeofences[index]
+                    self.previousGeofences.removeAtIndex(index)
+
+                    self.circle = nil
+                    replaceFirstWithCoordinate(geofence.points[0])
+                    replaceSecondWithCoordinate(geofence.points[1])
+                    self.title = geofence.title
+                }
+            }
+        }
 }
 
