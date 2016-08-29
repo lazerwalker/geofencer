@@ -65,20 +65,35 @@ class ViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func didTapDoneButton(sender: AnyObject) {
         if let first = first, second = second {
-            // TODO: Do anything with this
-            let geofence = Geofence(points:[first.coordinate, second.coordinate])
-            previousGeofences.append(geofence)
+            let alert = UIAlertController(title: "Name This Region", message: nil, preferredStyle: .Alert)
+            alert.addTextFieldWithConfigurationHandler({ (field) in
 
-            mapView.removeAnnotation(first)
-            mapView.removeAnnotation(second)
-            mapView.removeAnnotation(circle!)
-            mapView.removeOverlay(circle!)
+            })
+            alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
+                self.dismissViewControllerAnimated(true, completion: nil)
 
-            self.first = nil
-            self.second = nil
-            self.circle = nil
+                if let title = alert.textFields?.first?.text {
+                    let geofence = Geofence(points:[first.coordinate, second.coordinate], title: title)
+                    self.previousGeofences.append(geofence)
 
-            self.doneButton.enabled = false
+                    self.mapView.removeAnnotation(first)
+                    self.mapView.removeAnnotation(second)
+                    self.mapView.removeAnnotation(self.circle!)
+                    self.mapView.removeOverlay(self.circle!)
+
+                    self.first = nil
+                    self.second = nil
+                    self.circle = nil
+                    
+                    self.doneButton.enabled = false
+                }
+
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: { (action) in
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }))
+
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
@@ -127,8 +142,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
             if annotation.isKindOfClass(MKCircle.self) {
                 pinView?.pinTintColor = MKPinAnnotationView.greenPinColor()
+                pinView?.canShowCallout = true
             } else {
                 pinView?.pinTintColor = MKPinAnnotationView.redPinColor()
+                pinView?.canShowCallout = false
             }
             
             return pinView
