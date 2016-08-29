@@ -62,16 +62,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                     let geofence = Geofence(points:[first.coordinate, second.coordinate], title: title)
                     self.previousGeofences.append(geofence)
 
-                    self.mapView.removeAnnotation(first)
-                    self.mapView.removeAnnotation(second)
-                    self.mapView.removeAnnotation(self.circle!)
-                    self.mapView.removeOverlay(self.circle!)
-
-                    self.first = nil
-                    self.second = nil
-                    self.circle = nil
-                    
-                    self.doneButton.enabled = false
+                    self.resetCurrentRegion()
                 }
 
             }))
@@ -148,6 +139,24 @@ class ViewController: UIViewController, MKMapViewDelegate {
         }
     }
 
+    func resetCurrentRegion() {
+        if let first = first, second = second {
+            self.mapView.removeAnnotation(first)
+            self.mapView.removeAnnotation(second)
+        }
+
+        if let circle = circle {
+            self.mapView.removeAnnotation(circle)
+            self.mapView.removeOverlay(circle)
+        }
+
+        self.first = nil
+        self.second = nil
+        self.circle = nil
+
+        self.doneButton.enabled = false
+    }
+
     func recalculateCircle() {
         if let first = first, second = second {
             if let circle = circle {
@@ -158,7 +167,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
             circle = Geofence.circleFromPoints(first.coordinate, second.coordinate)
 
             if let circle = circle {
-                circle.title = "My Geofence"
+                circle.title = "Current Region"
                 mapView.addOverlay(circle)
                 mapView.addAnnotation(circle)
             }
@@ -183,7 +192,20 @@ class ViewController: UIViewController, MKMapViewDelegate {
             if annotation.isKindOfClass(MKCircle.self) {
                 pinView?.pinTintColor = MKPinAnnotationView.greenPinColor()
                 pinView?.canShowCallout = true
-                pinView?.rightCalloutAccessoryView = UIButton(type: .DetailDisclosure)
+
+                let button = UIButton(type: .Custom)
+                if let title = annotation.title {
+                    if (title == "Current Region") {
+                        button.setTitleColor(UIColor.redColor(), forState: .Normal)
+                        button.tintColor = UIColor.redColor()
+                        button.setTitle("X", forState: .Normal)
+                    } else {
+                        button.setTitleColor(self.view.tintColor, forState: .Normal)
+                        button.setTitle("Edit", forState: .Normal)
+                    }
+                }
+                button.sizeToFit()
+                pinView?.rightCalloutAccessoryView = button
             } else {
                 pinView?.pinTintColor = MKPinAnnotationView.redPinColor()
                 pinView?.canShowCallout = false
@@ -222,6 +244,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
                     replaceFirstWithCoordinate(geofence.points[0])
                     replaceSecondWithCoordinate(geofence.points[1])
                     self.title = geofence.title
+                } else {
+                    self.resetCurrentRegion()
                 }
             }
         }
