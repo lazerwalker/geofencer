@@ -96,7 +96,26 @@ class ViewController: UIViewController, MKMapViewDelegate {
             self.presentViewController(alert, animated: true, completion: nil)
         }
     }
-    
+
+    @IBAction func didTapResetButton(sender: AnyObject) {
+        let alert = UIAlertController(title: "Rest All Data", message: "Are you sure you'd like to erase all local regions?", preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+
+            self.previousGeofences = []
+            self.first = nil
+            self.second = nil
+            self.circle = nil
+        }))
+
+        alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: { (action) in
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }))
+
+        self.presentViewController(alert, animated: true, completion: nil)
+    }
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         locationManager.requestWhenInUseAuthorization()

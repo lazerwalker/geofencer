@@ -84,6 +84,11 @@
                         </variation>
                     </view>
                     <navigationItem key="navigationItem" title="GeoFencer" id="KZo-ml-X5k">
+                        <barButtonItem key="leftBarButtonItem" title="Reset" id="uey-NV-B6n">
+                            <connections>
+                                <action selector="didTapResetButton:" destination="BYZ-38-t0r" id="WrQ-gI-9Un"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Done" id="VJc-yX-Lq1">
                             <connections>
                                 <action selector="didTapDoneButton:" destination="BYZ-38-t0r" id="j13-AK-SCX"/>
