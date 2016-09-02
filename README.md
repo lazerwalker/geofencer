@@ -2,7 +2,7 @@
 
 This is a simple iOS app designed for people creating location-based content.
 
-It lets you manually define geofences by tagging physical points in the real world that you're currently standing at, using your phone's GPS. It then lets you export that data, in JSON, in a format that can be easily turned into iOS geofence regions.
+It lets you manually define geofences by tagging physical points in the real world that you're currently standing at, using your phone's GPS. It then lets you export that data, in JSON, in a format that can be easily turned into iOS CoreLocation geofence regions.
 
 <img src="https://raw.github.com/lazerwalker/geofencer/master/screenshot.jpg" data-canonical-src="https://raw.github.com/lazerwalker/geofencer/master/screenshot.jpg" height="400" />
 
@@ -29,6 +29,28 @@ The share icon lets you export your data as JSON. It uses a standard iOS share s
 
 Data persists across app launches. The `Reset` button erases all data (it will confirm you want to do this, in case you mis-tap).
 
+## Export
+
+The exported JSON currently looks like the following:
+
+```json
+[
+  {
+    "title": "fort",
+    "points": [
+      "37.8053518804142,-122.431926364193",
+      "37.807515422961,-122.429801148074"
+    ],
+    "center": "37.8064336596108,-122.430863756134",
+    "radius": 120.1796090214
+  }
+]
+```
+
+* `points`: The two lat/long coordinates that correspond to your "first corner" and "second corner" locations
+* `center`: The calculated center of the circle
+* `radius`: The calculated radius of the circle, in meters
+* `title`: The string you entered when creating the region
 
 ## Future Plans
 
