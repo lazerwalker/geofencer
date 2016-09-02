@@ -4,8 +4,7 @@ This is a simple iOS app designed for people creating location-based content.
 
 It lets you manually define geofences by tagging physical points in the real world that you're currently standing at, using your phone's GPS. It then lets you export that data, in JSON, in a format that can be easily turned into iOS geofence regions.
 
-![screenshot](https://raw.github.com/lazerwalker/geofencer/master/screenshot.jpg | height=400)
-
+<img src="https://raw.github.com/lazerwalker/geofencer/master/screenshot.jpg" data-canonical-src="https://raw.github.com/lazerwalker/geofencer/master/screenshot.jpg" height="400" />
 
 ## Setup
 
