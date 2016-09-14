@@ -5,62 +5,52 @@ import UIKit
 class ViewController: UIViewController, MKMapViewDelegate {
     let locationManager = CLLocationManager()
 
-    var first:MKPointAnnotation?
-    var second:MKPointAnnotation?
-    var circle:MKCircle?
+    var points:[MKPointAnnotation]?
+    var polygon:MKPolygon?
 
     let diskStore = DiskStore()
 
-    var previousGeofences:[Geofence] = [] {
+    var regions:[Region] = [] {
         didSet {
-            for geofence in oldValue {
-                mapView.removeOverlay(geofence.circle)
-                mapView.removeAnnotation(geofence.circle)
+            for region in oldValue {
+                region.overlays.forEach({ mapView.removeOverlay($0) })
+                region.annotations.forEach({ mapView.removeAnnotation($0) })
             }
 
-            for geofence in previousGeofences {
-                mapView.addOverlay(geofence.circle)
-                mapView.addAnnotation(geofence.circle)
+            for region in regions {
+                region.overlays.forEach({ mapView.addOverlay($0) })
+                region.annotations.forEach({ mapView.addAnnotation($0) })
             }
 
-            shareButton.enabled = (previousGeofences.count > 0)
-            resetButton.enabled = (previousGeofences.count > 0)
-            diskStore.save(previousGeofences)
+            shareButton.enabled = (regions.count > 0)
+            resetButton.enabled = (regions.count > 0)
+            diskStore.save(regions)
         }
 
     }
 
     @IBOutlet weak var mapView: MKMapView!
-    @IBOutlet weak var firstButton: UIButton!
-    @IBOutlet weak var secondButton: UIButton!
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var resetButton: UIBarButtonItem!
 
-    @IBAction func didTapFirstButton(sender: AnyObject) {
+    @IBAction func didTapAddButton(sender: AnyObject) {
         if let coordinate = mapView.userLocation.location?.coordinate {
-            replaceFirstWithCoordinate(coordinate)
-        }
-    }
-
-    @IBAction func didTapSecondButton(sender: AnyObject) {
-        if let coordinate = mapView.userLocation.location?.coordinate {
-            replaceSecondWithCoordinate(coordinate)
+            addCoordinate(coordinate)
         }
     }
     
     @IBAction func didTapDoneButton(sender: AnyObject) {
-        if let first = first, second = second {
+        if let points = self.points {
             let alert = UIAlertController(title: "Name This Region", message: nil, preferredStyle: .Alert)
-            alert.addTextFieldWithConfigurationHandler({ (field) in
-
-            })
+            alert.addTextFieldWithConfigurationHandler({ (field) in })
             alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
                 self.dismissViewControllerAnimated(true, completion: nil)
 
                 if let title = alert.textFields?.first?.text {
-                    let geofence = Geofence(points:[first.coordinate, second.coordinate], title: title)
-                    self.previousGeofences.append(geofence)
+                    let polygon = PolygonRegion(points: points, title: title)
+                    self.regions.append(polygon)
 
                     self.resetCurrentRegion()
                 }
@@ -75,14 +65,13 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
 
     @IBAction func didTapResetButton(sender: AnyObject) {
-        let alert = UIAlertController(title: "Rest All Data", message: "Are you sure you'd like to erase all local regions?", preferredStyle: .Alert)
+        let alert = UIAlertController(title: "Reset All Data", message: "Are you sure you'd like to erase all local regions?", preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Yes", style: .Default, handler: { (action) in
             self.dismissViewControllerAnimated(true, completion: nil)
 
-            self.previousGeofences = []
-            self.first = nil
-            self.second = nil
-            self.circle = nil
+            self.regions = []
+            self.points = nil
+            self.polygon = nil
         }))
 
         alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: { (action) in
@@ -93,7 +82,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
 
     @IBAction func didTapShareButton(sender: AnyObject) {
-        let json = Geofence.listAsJSON(self.previousGeofences)
+        let json = regionsAsJSON(self.regions)
         let activityViewController = UIActivityViewController(activityItems: [json as NSString], applicationActivities: nil)
         presentViewController(activityViewController, animated: true, completion: nil)
     }
@@ -105,77 +94,62 @@ class ViewController: UIViewController, MKMapViewDelegate {
         mapView.showsUserLocation = true
         mapView.setUserTrackingMode(.FollowWithHeading, animated: true)
 
-        previousGeofences = diskStore.load()
+        regions = diskStore.load()
     }
 
-    // -
-    func replaceFirstWithCoordinate(coordinate:CLLocationCoordinate2D) {
-        if let first = first {
-            mapView.removeAnnotation(first)
+    //-
+
+    func addCoordinate(coordinate:CLLocationCoordinate2D) {
+        let point = MKPointAnnotation()
+        point.coordinate = coordinate
+
+        if (self.points == nil) {
+            self.points = []
         }
+        self.points!.append(point)
+        self.mapView.addAnnotation(point)
 
-        first = MKPointAnnotation()
-        if let first = first {
-            first.coordinate = coordinate
-            mapView.addAnnotation(first)
-
-            recalculateCircle()
-            recalculateDoneButton()
-        }
-    }
-
-    func replaceSecondWithCoordinate(coordinate:CLLocationCoordinate2D) {
-        if let second = second {
-            mapView.removeAnnotation(second)
-        }
-
-        second = MKPointAnnotation()
-        if let second = second {
-            second.coordinate = coordinate
-            mapView.addAnnotation(second)
-
-            recalculateCircle()
-            recalculateDoneButton()
-        }
+        recalculatePolygon()
+        recalculateDoneButton()
     }
 
     func resetCurrentRegion() {
-        if let first = first, second = second {
-            self.mapView.removeAnnotation(first)
-            self.mapView.removeAnnotation(second)
+        if let points = points {
+            points.forEach({ (point) in
+                self.mapView.removeAnnotation(point)
+            })
         }
 
-        if let circle = circle {
-            self.mapView.removeAnnotation(circle)
-            self.mapView.removeOverlay(circle)
+        if let polygon = polygon {
+            self.mapView.removeAnnotation(polygon)
+            self.mapView.removeOverlay(polygon)
         }
 
-        self.first = nil
-        self.second = nil
-        self.circle = nil
+        self.points = []
+        self.polygon = nil
 
         self.doneButton.enabled = false
     }
 
-    func recalculateCircle() {
-        if let first = first, second = second {
-            if let circle = circle {
-                mapView.removeOverlay(circle)
-                mapView.removeAnnotation(circle)
+    func recalculatePolygon() {
+        if let points = points {
+            if let polygon = polygon {
+                mapView.removeOverlay(polygon)
+                mapView.removeAnnotation(polygon)
             }
 
-            circle = Geofence.circleFromPoints(first.coordinate, second.coordinate)
+            polygon = PolygonRegion.polygonFromPoints(points)
 
-            if let circle = circle {
-                circle.title = "Current Region"
-                mapView.addOverlay(circle)
-                mapView.addAnnotation(circle)
+            if let polygon = polygon {
+                polygon.title = "Current Region"
+                mapView.addOverlay(polygon)
+                mapView.addAnnotation(polygon)
             }
         }
     }
 
     func recalculateDoneButton() {
-        doneButton.enabled = (first != nil && second != nil)
+        doneButton.enabled = (points?.count > 0)
     }
 
     //-
@@ -189,8 +163,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
 
-            if annotation.isKindOfClass(MKCircle.self) {
-                pinView?.pinTintColor = MKPinAnnotationView.greenPinColor()
+            if annotation.isKindOfClass(MKShape.self) {
+                pinView?.pinTintColor = MKPinAnnotationView.redPinColor()
                 pinView?.canShowCallout = true
 
                 let button = UIButton(type: .Custom)
@@ -207,7 +181,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 button.sizeToFit()
                 pinView?.rightCalloutAccessoryView = button
             } else {
-                pinView?.pinTintColor = MKPinAnnotationView.redPinColor()
+                pinView?.pinTintColor = MKPinAnnotationView.greenPinColor()
                 pinView?.canShowCallout = false
                 pinView?.rightCalloutAccessoryView = nil
             }
@@ -218,8 +192,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
 
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
-        if overlay.isKindOfClass(MKCircle.self) {
-            let renderer = MKCircleRenderer(overlay: overlay)
+        if overlay.isKindOfClass(MKPolygon.self) {
+            let renderer = MKPolygonRenderer(polygon: overlay as! MKPolygon)
             renderer.fillColor = UIColor.cyanColor().colorWithAlphaComponent(0.2)
             renderer.strokeColor = UIColor.blueColor().colorWithAlphaComponent(0.7)
             renderer.lineWidth = 0.5;
@@ -233,17 +207,18 @@ class ViewController: UIViewController, MKMapViewDelegate {
         return MKCircleRenderer()
     }
 
+    // TODO: Fix this
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if (!view.annotation!.isKindOfClass(MKCircle.self)) { return }
             if let circle = view.annotation as? MKCircle {
-                if let index = self.previousGeofences.indexOf({ $0.circle == circle }) {
-                    let geofence = self.previousGeofences[index]
-                    self.previousGeofences.removeAtIndex(index)
+                if let index = self.regions.indexOf({ $0.annotations == [circle] }) {
+                    let region = self.regions[index]
+                    self.regions.removeAtIndex(index)
 
-                    self.circle = nil
-                    replaceFirstWithCoordinate(geofence.points[0])
-                    replaceSecondWithCoordinate(geofence.points[1])
-                    self.title = geofence.title
+//                    self.circle = nil
+//                    replaceFirstWithCoordinate(region.points[0])
+//                    replaceSecondWithCoordinate(region.points[1])
+                    self.title = region.title
                 } else {
                     self.resetCurrentRegion()
                 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kje-sU-KGs">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="Kje-sU-KGs">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -45,25 +45,16 @@
                                 <rect key="frame" x="20" y="520" width="560" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ec5-fc-drR">
-                                        <rect key="frame" x="0.0" y="0.0" width="270" height="60"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="60"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="First Corner"/>
+                                        <state key="normal" title="Add Point"/>
                                         <connections>
-                                            <action selector="didTapFirstButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="TIG-Px-ssU"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awo-lg-dDq">
-                                        <rect key="frame" x="290" y="0.0" width="270" height="60"/>
-                                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <state key="normal" title="Second Corner"/>
-                                        <connections>
-                                            <action selector="didTapSecondButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="tmg-mx-Ywl"/>
+                                            <action selector="didTapAddButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vzu-gH-EBW"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="2VH-Jb-Dp0"/>
-                                    <constraint firstItem="awo-lg-dDq" firstAttribute="width" secondItem="Ec5-fc-drR" secondAttribute="width" id="Td0-Ll-b1e"/>
                                 </constraints>
                             </stackView>
                         </subviews>
@@ -106,11 +97,10 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="addButton" destination="Ec5-fc-drR" id="3ye-2v-Awc"/>
                         <outlet property="doneButton" destination="VJc-yX-Lq1" id="FfT-AK-fog"/>
-                        <outlet property="firstButton" destination="Ec5-fc-drR" id="9Jz-Av-hxF"/>
                         <outlet property="mapView" destination="UO9-Hm-jsj" id="yfI-IO-8kq"/>
                         <outlet property="resetButton" destination="uey-NV-B6n" id="uYt-JR-UAN"/>
-                        <outlet property="secondButton" destination="awo-lg-dDq" id="oyZ-2J-RmR"/>
                         <outlet property="shareButton" destination="1gY-PF-otC" id="PBU-KF-W8X"/>
                     </connections>
                 </viewController>

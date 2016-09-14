@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C6215A6B1D879A9F00BA230E /* PolygonRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C6215A6A1D879A9F00BA230E /* PolygonRegion.swift */; };
 		C63DD7F61D74C4A200AB0A9A /* DiskStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63DD7F51D74C4A200AB0A9A /* DiskStore.swift */; };
+		C63DD7FC1D74F92600AB0A9A /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = C63DD7FB1D74F92600AB0A9A /* Region.swift */; };
 		C69984C21D68CA7F004F761B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984C11D68CA7F004F761B /* AppDelegate.swift */; };
 		C69984C41D68CA7F004F761B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984C31D68CA7F004F761B /* ViewController.swift */; };
 		C69984C71D68CA7F004F761B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C69984C51D68CA7F004F761B /* Main.storyboard */; };
@@ -15,11 +17,13 @@
 		C69984CC1D68CA7F004F761B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C69984CA1D68CA7F004F761B /* LaunchScreen.storyboard */; };
 		C69984D41D68CB33004F761B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69984D31D68CB33004F761B /* MapKit.framework */; };
 		C69984D61D68CBA3004F761B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C69984D51D68CBA3004F761B /* CoreLocation.framework */; };
-		C69984D81D68F484004F761B /* Geofence.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984D71D68F483004F761B /* Geofence.swift */; };
+		C69984D81D68F484004F761B /* CircularRegion.swift in Sources */ = {isa = PBXBuildFile; fileRef = C69984D71D68F483004F761B /* CircularRegion.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C6215A6A1D879A9F00BA230E /* PolygonRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PolygonRegion.swift; sourceTree = "<group>"; };
 		C63DD7F51D74C4A200AB0A9A /* DiskStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiskStore.swift; sourceTree = "<group>"; };
+		C63DD7FB1D74F92600AB0A9A /* Region.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		C69984BE1D68CA7F004F761B /* GeoFencer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeoFencer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C69984C11D68CA7F004F761B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C69984C31D68CA7F004F761B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -29,7 +33,7 @@
 		C69984CD1D68CA7F004F761B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C69984D31D68CB33004F761B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		C69984D51D68CBA3004F761B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		C69984D71D68F483004F761B /* Geofence.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Geofence.swift; sourceTree = "<group>"; };
+		C69984D71D68F483004F761B /* CircularRegion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircularRegion.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,13 +71,15 @@
 			isa = PBXGroup;
 			children = (
 				C69984C11D68CA7F004F761B /* AppDelegate.swift */,
+				C6215A6A1D879A9F00BA230E /* PolygonRegion.swift */,
+				C69984D71D68F483004F761B /* CircularRegion.swift */,
 				C69984C31D68CA7F004F761B /* ViewController.swift */,
 				C69984C51D68CA7F004F761B /* Main.storyboard */,
 				C69984C81D68CA7F004F761B /* Assets.xcassets */,
 				C69984CA1D68CA7F004F761B /* LaunchScreen.storyboard */,
 				C69984CD1D68CA7F004F761B /* Info.plist */,
-				C69984D71D68F483004F761B /* Geofence.swift */,
 				C63DD7F51D74C4A200AB0A9A /* DiskStore.swift */,
+				C63DD7FB1D74F92600AB0A9A /* Region.swift */,
 			);
 			path = GeoFencer;
 			sourceTree = "<group>";
@@ -151,8 +157,10 @@
 			files = (
 				C69984C41D68CA7F004F761B /* ViewController.swift in Sources */,
 				C69984C21D68CA7F004F761B /* AppDelegate.swift in Sources */,
+				C63DD7FC1D74F92600AB0A9A /* Region.swift in Sources */,
 				C63DD7F61D74C4A200AB0A9A /* DiskStore.swift in Sources */,
-				C69984D81D68F484004F761B /* Geofence.swift in Sources */,
+				C6215A6B1D879A9F00BA230E /* PolygonRegion.swift in Sources */,
+				C69984D81D68F484004F761B /* CircularRegion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

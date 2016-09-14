@@ -1,19 +1,21 @@
 import Foundation
 import MapKit
 
-class Geofence : Equatable {
+class CircularRegion : Region {
     let points:[CLLocationCoordinate2D]
     let title:String
 
-    let circle: MKCircle
+    let annotations:[MKAnnotation]
+    let overlays:[MKOverlay]
 
     init (points:[CLLocationCoordinate2D], title:String) {
         self.points = points
         self.title = title
 
-        // TODO: This assumes only 2 points
-        circle = Geofence.circleFromPoints(points.first!, points.last!)
+        let circle = CircularRegion.circleFromPoints(points.first!, points.last!)
         circle.title = title
+        self.annotations = [circle]
+        self.overlays = [circle]
     }
 
     class func circleFromPoints(first:CLLocationCoordinate2D, _ second:CLLocationCoordinate2D) -> MKCircle {
@@ -28,6 +30,8 @@ class Geofence : Equatable {
     }
 
     //-
+    // Serializable
+
     // TODO: All the lols.
     func toJSON() -> String {
         func coordToString(coordinate:CLLocationCoordinate2D) -> String {
@@ -40,7 +44,7 @@ class Geofence : Equatable {
         return "{\"title\":\"\(title)\", \"points\":[\(pointString)], \"center\":\(centerCoordinate), \"radius\":\(circle.radius)}"
     }
 
-    class func fromJSON(json:String) -> Geofence? {
+    class func fromJSON(json:String) -> Region? {
         do {
             let data = json.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!
             let json = try NSJSONSerialization.JSONObjectWithData(data, options: []) as! [String: AnyObject]
@@ -52,7 +56,7 @@ class Geofence : Equatable {
                     let lng = (latlng[1] as NSString).doubleValue
                     return CLLocationCoordinate2D(latitude: lat, longitude: lng)
                 })
-                return Geofence(points: points, title: title)
+                return CircularRegion(points: points, title: title)
             }
         } catch let error as NSError {
             print("Failed to load: \(error.localizedDescription)")
@@ -60,14 +64,4 @@ class Geofence : Equatable {
         }
         return nil
     }
-
-    class func listAsJSON(geofences:[Geofence]) -> String {
-        let list = geofences.map({$0.toJSON()})
-        return "[\(list.joinWithSeparator(","))]"
-    }
-}
-
-// Equatable
-func ==(lhs: Geofence, rhs: Geofence) -> Bool {
-    return lhs.toJSON() == rhs.toJSON()
 }
