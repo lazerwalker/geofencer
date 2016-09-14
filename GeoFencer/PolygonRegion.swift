@@ -12,6 +12,7 @@ struct PolygonRegion : Region {
         self.title = title
 
         let polygon = PolygonRegion.polygonFromPoints(points)
+        polygon.title = self.title
 
         self.overlays = [polygon]
 
