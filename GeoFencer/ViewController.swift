@@ -230,8 +230,10 @@ class ViewController: UIViewController, MKMapViewDelegate {
                     let region = self.regions[index]
                     self.regions.removeAtIndex(index)
 
-                    self.polygon = nil
+                    self.points?.forEach({ self.mapView.removeAnnotation($0) })
                     self.points = []
+
+                    recalculatePolygon()
 
                     region.points.forEach({ addCoordinate($0) })
                     self.title = region.title
