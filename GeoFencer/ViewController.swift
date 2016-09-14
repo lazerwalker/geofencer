@@ -102,6 +102,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     func addCoordinate(coordinate:CLLocationCoordinate2D) {
         let point = MKPointAnnotation()
         point.coordinate = coordinate
+        point.title = "Region Vertex"
 
         if (self.points == nil) {
             self.points = []
@@ -165,8 +166,14 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
             if annotation.isKindOfClass(MKPointAnnotation.self) {
                 pinView?.pinTintColor = MKPinAnnotationView.redPinColor()
-                pinView?.canShowCallout = false
-                pinView?.rightCalloutAccessoryView = nil
+                pinView?.canShowCallout = true
+
+                let button = UIButton(type: .Custom)
+                button.setTitleColor(UIColor.redColor(), forState: .Normal)
+                button.tintColor = UIColor.redColor()
+                button.setTitle("X", forState: .Normal)
+                button.sizeToFit()
+                pinView?.rightCalloutAccessoryView = button
             } else {
                 pinView?.pinTintColor = MKPinAnnotationView.greenPinColor()
                 pinView?.canShowCallout = true
@@ -207,10 +214,16 @@ class ViewController: UIViewController, MKMapViewDelegate {
         return MKCircleRenderer()
     }
 
-    // TODO: Fix this
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if (view.annotation!.isKindOfClass(MKPointAnnotation.self)) {
-            return
+            if let point = view.annotation as? MKPointAnnotation {
+                self.mapView.removeAnnotation(point)
+                self.points = self.points?.filter({
+                    return !($0.coordinate.latitude == point.coordinate.latitude &&
+                        $0.coordinate.longitude == point.coordinate.longitude)
+                })
+                recalculatePolygon()
+            }
         } else {
             if let polygon = view.annotation as? MKPolygon {
                 if let index = self.regions.indexOf({ $0.annotations == [polygon] }) {
