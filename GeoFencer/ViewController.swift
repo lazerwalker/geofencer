@@ -156,15 +156,19 @@ class ViewController: UIViewController, MKMapViewDelegate {
     // MKMapViewDelegate
 
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
-        if annotation.isKindOfClass(MKPointAnnotation.self) || annotation.isKindOfClass(MKCircle.self) {
+        if annotation.isKindOfClass(MKPointAnnotation.self) || annotation.isKindOfClass(MKPolygon.self) {
             let identifier = NSStringFromClass(MKPinAnnotationView.self)
             var pinView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier) as? MKPinAnnotationView
             if (pinView == nil) {
                 pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             }
 
-            if annotation.isKindOfClass(MKShape.self) {
+            if annotation.isKindOfClass(MKPointAnnotation.self) {
                 pinView?.pinTintColor = MKPinAnnotationView.redPinColor()
+                pinView?.canShowCallout = false
+                pinView?.rightCalloutAccessoryView = nil
+            } else {
+                pinView?.pinTintColor = MKPinAnnotationView.greenPinColor()
                 pinView?.canShowCallout = true
 
                 let button = UIButton(type: .Custom)
@@ -180,10 +184,6 @@ class ViewController: UIViewController, MKMapViewDelegate {
                 }
                 button.sizeToFit()
                 pinView?.rightCalloutAccessoryView = button
-            } else {
-                pinView?.pinTintColor = MKPinAnnotationView.greenPinColor()
-                pinView?.canShowCallout = false
-                pinView?.rightCalloutAccessoryView = nil
             }
             
             return pinView
