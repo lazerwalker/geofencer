@@ -209,20 +209,24 @@ class ViewController: UIViewController, MKMapViewDelegate {
 
     // TODO: Fix this
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if (!view.annotation!.isKindOfClass(MKCircle.self)) { return }
-            if let circle = view.annotation as? MKCircle {
-                if let index = self.regions.indexOf({ $0.annotations == [circle] }) {
+        if (view.annotation!.isKindOfClass(MKPointAnnotation.self)) {
+            return
+        } else {
+            if let polygon = view.annotation as? MKPolygon {
+                if let index = self.regions.indexOf({ $0.annotations == [polygon] }) {
                     let region = self.regions[index]
                     self.regions.removeAtIndex(index)
 
-//                    self.circle = nil
-//                    replaceFirstWithCoordinate(region.points[0])
-//                    replaceSecondWithCoordinate(region.points[1])
+                    self.polygon = nil
+                    self.points = []
+
+                    region.points.forEach({ addCoordinate($0) })
                     self.title = region.title
                 } else {
                     self.resetCurrentRegion()
                 }
             }
         }
+    }
 }
 
