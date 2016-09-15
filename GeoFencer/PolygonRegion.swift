@@ -27,7 +27,6 @@ struct PolygonRegion : Region {
     //-
 
     static func polygonFromPoints(points:[MKPointAnnotation]) -> MKPolygon {
-        // TODO: How to convert?
         let coords = points.map({ return $0.coordinate })
         let pointer:UnsafeMutablePointer<CLLocationCoordinate2D> = UnsafeMutablePointer(coords)
         return MKPolygon(coordinates: pointer, count: points.count)
