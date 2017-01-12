@@ -19,7 +19,7 @@ This assumes a functioning iOS development environment. It has not yet been test
 
 ## Usage
 
-Currently, this lets you generate circular regions (center point + radius) by geotagging two points along the edge of the circle. 
+Currently, this lets you generate circular regions (center point + radius) by geotagging two points along the edge of the circle. If you care about being able to generate arbitrary polygons, rather than circles, check out the `region` branch. It currently functions.
 
 Tapping either the "first corner" or "second corner" button in the app will tag your current location. If either the first or second corner is already set, your current position will overwrite the existing one. If you've set both positions, you will be able to see the region circle; once you're happy with that, tapping the 'done' button will prompt you to set a name for the region.
 
