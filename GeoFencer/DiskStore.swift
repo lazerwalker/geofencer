@@ -22,9 +22,7 @@ struct DiskStore {
         if let data = NSUserDefaults.standardUserDefaults().objectForKey(filename) as? NSData,
             json = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [String] {
 
-            let results:[Region?] = json.map({ PolygonRegion.fromJSON($0) })
-            return results
-                .filter({ $0 != nil })
+            return json.flatMap { PolygonRegion.fromJSON($0) }
                 .map({ $0 as Region! })
         }
         return []

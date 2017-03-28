@@ -1,10 +1,15 @@
 import Foundation
 import MapKit
 
+// This class isn't actually used, and probably only sort of functions. 
+// When transitioning from using circular regions to polygonal regions,
+// the hope was a refactor would allow both circles and arbitrary polygons.
+// tl;dr: YAGNI
 class CircularRegion : Region {
     let points:[CLLocationCoordinate2D]
     let title:String
 
+    let circle:MKCircle
     let annotations:[MKAnnotation]
     let overlays:[MKOverlay]
 
@@ -12,8 +17,13 @@ class CircularRegion : Region {
         self.points = points
         self.title = title
 
-        let circle = CircularRegion.circleFromPoints(points.first!, points.last!)
+        // This should probably actually take in either a tuple of 
+        // (CLLocationCoordinate2D, CLLocationCoordinate2D), or two separate args,
+        // instead of the nasty force unwrap assuming points has at least two objects.
+        // Again, though, this class isn't actually used.
+        circle = CircularRegion.circleFromPoints(points.first!, points.last!)
         circle.title = title
+        
         self.annotations = [circle]
         self.overlays = [circle]
     }

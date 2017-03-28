@@ -6,7 +6,7 @@ struct PolygonRegion : Region {
     let title:String
 
     init(points:[MKPointAnnotation], title:String) {
-        let coordinates = points.map({ return $0.coordinate })
+        let coordinates = points.map { $0.coordinate }
 
         self.points = coordinates
         self.title = title
@@ -27,7 +27,7 @@ struct PolygonRegion : Region {
     //-
 
     static func polygonFromPoints(points:[MKPointAnnotation]) -> MKPolygon {
-        let coords = points.map({ return $0.coordinate })
+        let coords = points.map { $0.coordinate }
         let pointer:UnsafeMutablePointer<CLLocationCoordinate2D> = UnsafeMutablePointer(coords)
         return MKPolygon(coordinates: pointer, count: points.count)
     }

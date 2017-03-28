@@ -5,8 +5,10 @@ import UIKit
 class ViewController: UIViewController, MKMapViewDelegate {
     let locationManager = CLLocationManager()
 
-    var points:[MKPointAnnotation]?
-    var polygon:MKPolygon?
+    // A Region object is generally immutable and needs to fully exist at creation time
+    // Let's use raw MKPointAnnotation and MKPolygon objects to represent the currently-being-edited region
+    var currentPoints:[MKPointAnnotation]?
+    var currentPolygon:MKPolygon?
 
     let diskStore = DiskStore()
 
@@ -42,7 +44,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func didTapDoneButton(sender: AnyObject) {
-        if let points = self.points {
+        if let points = self.currentPoints {
             let alert = UIAlertController(title: "Name This Region", message: nil, preferredStyle: .Alert)
             alert.addTextFieldWithConfigurationHandler({ (field) in })
             alert.addAction(UIAlertAction(title: "OK", style: .Default, handler: { (action) in
@@ -70,8 +72,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
             self.dismissViewControllerAnimated(true, completion: nil)
 
             self.regions = []
-            self.points = nil
-            self.polygon = nil
+            self.currentPoints = nil
+            self.currentPolygon = nil
         }))
 
         alert.addAction(UIAlertAction(title: "No", style: .Cancel, handler: { (action) in
@@ -104,10 +106,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
         point.coordinate = coordinate
         point.title = "Region Vertex"
 
-        if (self.points == nil) {
-            self.points = []
-        }
-        self.points!.append(point)
+        self.currentPoints = (self.currentPoints != nil) ? self.currentPoints : []
+        self.currentPoints!.append(point)
         self.mapView.addAnnotation(point)
 
         recalculatePolygon()
@@ -115,33 +115,29 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
 
     func resetCurrentRegion() {
-        if let points = points {
-            points.forEach({ (point) in
-                self.mapView.removeAnnotation(point)
-            })
-        }
+        currentPoints?.forEach { self.mapView.removeAnnotation($0) }
 
-        if let polygon = polygon {
+        if let polygon = self.currentPolygon {
             self.mapView.removeAnnotation(polygon)
             self.mapView.removeOverlay(polygon)
         }
 
-        self.points = []
-        self.polygon = nil
+        self.currentPoints = []
+        self.currentPolygon = nil
 
         self.doneButton.enabled = false
     }
 
     func recalculatePolygon() {
-        if let points = points {
-            if let polygon = polygon {
+        if let points = self.currentPoints {
+            if let polygon = self.currentPolygon {
                 mapView.removeOverlay(polygon)
                 mapView.removeAnnotation(polygon)
             }
 
-            polygon = PolygonRegion.polygonFromPoints(points)
+            self.currentPolygon = PolygonRegion.polygonFromPoints(points)
 
-            if let polygon = polygon {
+            if let polygon = self.currentPolygon {
                 polygon.title = "Current Region"
                 mapView.addOverlay(polygon)
                 mapView.addAnnotation(polygon)
@@ -150,7 +146,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
     }
 
     func recalculateDoneButton() {
-        doneButton.enabled = (points?.count > 0)
+        doneButton.enabled = (self.currentPoints?.count > 0)
     }
 
     //-
@@ -208,9 +204,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
             return renderer
         }
 
-        // This case should never be reached, and fail silently.
-        // But this function doesn't have a return type of Optional.
-        // Obj-C interop is hard!
+        // This case should never be reached. In an ideal world, we'd be able to return nil.
+        // Since this function expects a non-optional, returning a no-op object that does no actual rendering will have to suffice.
         return MKCircleRenderer()
     }
 
@@ -218,7 +213,7 @@ class ViewController: UIViewController, MKMapViewDelegate {
         if (view.annotation!.isKindOfClass(MKPointAnnotation.self)) {
             if let point = view.annotation as? MKPointAnnotation {
                 self.mapView.removeAnnotation(point)
-                self.points = self.points?.filter({
+                self.currentPoints = self.currentPoints?.filter({
                     return !($0.coordinate.latitude == point.coordinate.latitude &&
                         $0.coordinate.longitude == point.coordinate.longitude)
                 })
@@ -230,8 +225,8 @@ class ViewController: UIViewController, MKMapViewDelegate {
                     let region = self.regions[index]
                     self.regions.removeAtIndex(index)
 
-                    self.points?.forEach({ self.mapView.removeAnnotation($0) })
-                    self.points = []
+                    self.currentPoints?.forEach({ self.mapView.removeAnnotation($0) })
+                    self.currentPoints = []
 
                     recalculatePolygon()
 
